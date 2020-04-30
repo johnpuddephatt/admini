@@ -1,0 +1,106 @@
+// Import Bulma's core
+@import "~bulma/sass/utilities/_all";
+
+// Sizes
+$sidebar-width: 12em;
+
+// Set your colors
+$primary: #8c67ef;
+$dark: #1F3850;
+$primary-invert: findColorInvert($primary);
+$twitter: #4099FF;
+$twitter-invert: findColorInvert($twitter);
+
+// Setup $colors to use as bulma classes (e.g. 'is-twitter')
+$colors: (
+    "white": ($white, $black),
+    "black": ($black, $white),
+    "light": ($light, $light-invert),
+    "dark": ($dark, $dark-invert),
+    "primary": ($primary, $primary-invert),
+    "info": ($info, $info-invert),
+    "success": ($success, $success-invert),
+    "warning": ($warning, $warning-invert),
+    "danger": ($danger, $danger-invert),
+    "twitter": ($twitter, $twitter-invert)
+);
+
+// Links
+$link: $primary;
+$link-invert: $primary-invert;
+$link-focus-border: $primary;
+
+// Import Bulma and Buefy styles
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
+
+
+body {
+    min-height: 100vh;
+    padding-left: $sidebar-width;
+    padding-top: 5em;
+}
+
+aside {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  height: 100vh;
+  width: $sidebar-width;
+  background-color: $dark;
+  background-image: linear-gradient(to bottom, HSL(219, 66%, 15%), HSL(211, 63%, 22%));
+  padding: 4em 1em;
+  .menu-list a {
+    color: $light;
+  }
+}
+
+.navbar {
+  z-index: 20;
+  &__primary {
+    margin-left: $sidebar-width;
+  }
+  &__filter {
+    margin-bottom: 0;
+    background-color: transparent;
+    .navbar-start {
+      align-items: center;
+      > * + * {
+        margin-left: $block-spacing/2;
+      }
+    }
+    .field {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.page-title {
+  font-size: $size-1;
+  margin-bottom: $block-spacing;
+  font-weight: $weight-semibold;
+}
+
+.card {
+  margin-bottom: $block-spacing;
+}
+
+.is-user-avatar {
+  margin-right: $block-spacing/4;
+  img {
+    display: block;
+    border-radius: 50%;
+  }
+}
+
+
+// Table min height when empty
+tr.is-empty {
+  height: 175px;
+}
+
+// Search input on table view
+.search-control {
+  width: 14em;
+}

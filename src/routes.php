@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['namespace' => '\Admini\Http\Controllers'], function() {
+Route::group(['namespace' => '\Admini\app\Http\Controllers'], function() {
 
   Route::get('/admin', 'ResourceController@dashboard')->name('dashboard');
 

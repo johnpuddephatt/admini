@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 // import Buefy from 'buefy'
 import Buefy from 'buefy/src/index.js'
 import axios from 'axios'
-import '@mdi/font/css/materialdesignicons.css'
 
 Vue.use(Buefy, {
   // defaultDateFormatter: date => {

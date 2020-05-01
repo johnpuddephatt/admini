@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('vendor/admini/css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/2.5.94/css/materialdesignicons.min.css">
 </head>
 
 <body class="has-background-light">

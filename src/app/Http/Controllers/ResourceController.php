@@ -31,15 +31,23 @@ class ResourceController extends Controller
 
     public function index(ResourceRequest $request)
     {
-      $resource = $request->newResource();
+      try {
+        $resource = $request->newResource();
 
-      return response()->json([
-        'title' => $resource->title(),
-        'searchable' => $resource->search(),
-        'entries' => $resource->buildQuery($request)->paginate($resource->perPage()),
-        'columns' => $resource->columns(),
-        'filters' => $resource->filters()
-      ]);
+        return response()->json([
+          'title' => $resource->title(),
+          'searchable' => $resource->search(),
+          'entries' => $resource->buildQuery($request)->paginate($resource->perPage()),
+          'columns' => $resource->columns(),
+          'filters' => $resource->filters()
+        ]);
+      }
+      catch(\Exception $e){
+        return response()->json([
+            'message' => $e->getMessage(),
+            'type' => 'is-danger'
+        ]);
+      }
     }
 
     // public function related(ResourceRequest $request)

@@ -107,7 +107,7 @@ class ResourceController extends Controller
     {
       try{
         $resourceClass = $request->resourceClass();
-        $result = $resourceClass::findEntry($request->id)->update($request->all());
+        $result = $resourceClass::entry($request->id)->update($request->all());
         if($result) {
           return response()->json([
               'message' => 'Entry updated',

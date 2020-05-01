@@ -128,7 +128,7 @@ abstract class Resource
     return $this;
   }
 
-  public static function findEntry($id) {
+  public static function entry($id) {
     $model = static::model();
     return $model::find($id);
   }

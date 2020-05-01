@@ -18,7 +18,7 @@
 
     export default {
 
-      props: ['tabs','data', 'errors'],
+      props: ['fields','data', 'errors'],
 
       components: {
         AdminiFields
@@ -26,13 +26,13 @@
 
       computed: {
         fieldsetNames: function() {
-          return [...new Set(this.tabs.map(field => field.fieldset))]
+          return [...new Set(this.fields.map(field => field.fieldset))]
         },
       },
 
       methods: {
         getFieldsByFieldset: function(fieldsetName) {
-          return this.tabs.filter(field => field.fieldset === fieldsetName)
+          return this.fields.filter(field => field.fieldset === fieldsetName)
         }
       }
     }

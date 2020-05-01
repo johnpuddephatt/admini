@@ -30,16 +30,35 @@
         </div>
       </div>
 
-      <div class="navbar-item has-dropdown is-hoverable has-dropdown-with-icons has-user-avatar"><a class="navbar-link">
-          <div class="is-user-avatar"><img src="https://pbs.twimg.com/profile_images/582895958192726017/FHM-Q8qU_200x200.jpg" alt="John Doe"></div>
-          <div class="is-user-name"><span>John Doe</span></div>
-        </a>
-        <div class="navbar-dropdown"><a class="navbar-item"><span class="icon"><i class="mdi mdi-account default"></i></span><span>My Profile</span></a>
-          <a class="navbar-item"><span class="icon"><i class="mdi mdi-settings default"></i></span><span>Settings</span></a>
-          <a class="navbar-item"><span class="icon"><i class="mdi mdi-email default"></i></span><span>Messages</span></a>
-          <hr class="navbar-divider">
-          <a class="navbar-item"><span class="icon"><i class="mdi mdi-logout default"></i></span><span>Log Out</span></a></div>
+      @if (Auth::guest())
+        <div class="navbar-item">
+          Hello Guest
+        </div>
+      @else
+      <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">
+            {{ Arr::random(['Ciao', 'Salve', 'Pronto']) }}, {{ Auth::user()->first_name }}!
+            @if(Auth::user()->is_admin)<span class="tag is-success">Admin</span>@endif
+          </a>
+
+          <div class="navbar-dropdown">
+            @if(Auth::user()->is_admin)
+              <a class="navbar-item" href="{{ route('admin') }}">
+                Admin
+              </a>
+            @endif
+              <a class="navbar-item" href="{{ route('logout') }}"
+                 onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                  Logout
+              </a>
+
+              <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                  style="display: none;">
+                  {{ csrf_field() }}
+              </form>
+          </div>
       </div>
+  @endif
 
 
 

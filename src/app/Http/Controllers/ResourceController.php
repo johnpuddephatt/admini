@@ -1,9 +1,9 @@
 <?php
 
-namespace Admini\Http\Controllers;
+namespace Admini\app\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use Admini\Http\Requests\ResourceRequest;
+use Admini\app\Http\Requests\ResourceRequest;
 
 use Illuminate\Support\Arr;
 

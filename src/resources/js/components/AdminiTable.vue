@@ -40,7 +40,7 @@
                 <button class="button is-primary" slot="trigger">
                   <b-icon icon="menu-down"></b-icon>
                 </button>
-                <b-dropdown-item v-if="props.row.deleted_at" @click="forceDeleteItem(props.row.id)">Permanently delete</b-dropdown-item>
+                <b-dropdown-item v-if="props.row.deleted_at" @click="deleteItem(props.row.id, true)">Permanently delete</b-dropdown-item>
                 <b-dropdown-item v-else @click="deleteItem(props.row.id)">Delete</b-dropdown-item>
               </b-dropdown>
             </p>
@@ -148,29 +148,29 @@
           return Vue.filter(filter)(value)
         },
 
-        deleteItem(id) {
+        deleteItem(id, force) {
           this.$buefy.dialog.confirm({
             title: 'Permanently deleting entry',
-            message: 'Are you sure you want to <b>delete</b> this entry?',
-            confirmText: 'Delete',
-            type: 'is-warning',
+            message: `Are you sure you want to <b>${force ? 'permanently delete' : 'delete'}</b> this entry?`,
+            confirmText: (force ? 'Permanently delete' : 'Delete'),
+            type: (force ? 'is-danger' : 'is-warning'),
             hasIcon: true,
-            onConfirm: () => axios.delete('/' + this.model + '/' + id + '/delete')
+            onConfirm: () => axios.delete('/admini/' + this.model + '/' + id + (force ? '/forcedelete' : '/delete'))
               .then(({ data }) => this.postDelete(data))
           })
         },
 
-        forceDeleteItem(id) {
-          this.$buefy.dialog.confirm({
-            title: 'Deleting entry',
-            message: 'Are you sure you want to <b>permanently delete</b> this entry?',
-            confirmText: 'Permanently delete',
-            type: 'is-danger',
-            hasIcon: true,
-            onConfirm: () => axios.delete('/' + this.model + '/' + id + '/forcedelete')
-              .then(({ data }) => this.postDelete(data))
-          })
-        },
+        // forceDeleteItem(id) {
+        //   this.$buefy.dialog.confirm({
+        //     title: 'Deleting entry',
+        //     message: 'Are you sure you want to <b>permanently delete</b> this entry?',
+        //     confirmText: 'Permanently delete',
+        //     type: 'is-danger',
+        //     hasIcon: true,
+        //     onConfirm: () => axios.delete('/admini/' + this.model + '/' + id + '/forcedelete')
+        //       .then(({ data }) => this.postDelete(data))
+        //   })
+        // },
 
         postDelete(data) {
           this.$buefy.snackbar.open({
@@ -183,7 +183,7 @@
 
         fetchData(model = this.model) {
           this.dataLoading = true;
-          axios.get(`/${ model }/index/${ this.queryString }` )
+          axios.get(`/admini/${ model }/index/${ this.queryString }` )
             .then(({data}) => this.populateData(data));
         },
 

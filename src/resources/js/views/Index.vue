@@ -4,15 +4,12 @@
       <h1 class="page-title">Table of {{model}}</h1>
       <router-link class="button is-primary" :to="`/${model}/create`">Create new</router-link>
 
-      <admini-table :model="model">
-                    </admini-table>
+      <admini-table :model="model"></admini-table>
 
     </div>
 </template>
 
 <script>
-  var debounce = require('debounce');
-
   import AdminiTable from '../components/AdminiTable.vue'
 
   export default {
@@ -27,12 +24,6 @@
       }
     },
 
-    // computed: {
-    //   model: function() {
-    //     return this.$route.params.model
-    //   }
-    // },
-
     created() {
       this.model =  this.$route.params.model
     },
@@ -41,7 +32,5 @@
       this.model = to.params.model;
       next();
     },
-
-
   }
 </script>

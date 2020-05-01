@@ -10,6 +10,7 @@
             </b-tab-item>
           </b-tabs>
           <admini-fieldsets v-else :fields="form.fields" :data="form.data" :errors="form.errors.errors"></admini-fieldsets>
+
           <b-button tag="input" value="Reset" @click="form.reset()" />
           <b-button class="is-primary" tag="input" native-type="submit" value="Save" />
         </form>
@@ -21,12 +22,7 @@
 
 <script>
 import Form from '../core/Form'
-
 import AdminiFieldsets from '../components/AdminiFieldsets.vue'
-//
-// import hljs from 'highlight.js'
-// import 'highlight.js/styles/github.css';
-
 
 export default {
 
@@ -41,31 +37,24 @@ export default {
   },
 
   computed: {
-
     tabNames: function() {
       return [...new Set(this.form.fields.map(field => field.tab))]
     },
-
-    // fieldsets: function() {
-    //   return [...new Set(this.form.fields.map(field => field.tab))]
-    // }
-
   },
 
   created() {
-    axios.get('/' + this.$route.params.model + '/' + this.$route.params.id)
+    axios.get('/admini/' + this.$route.params.model + '/' + this.$route.params.id)
       .then(({data}) => { this.populateData(data.fields, data.entry) });
   },
 
   methods: {
 
     onSubmit() {
-      this.form.put('/' + this.$route.params.model + '/' + this.$route.params.id)
+      this.form.put('/admini/' + this.$route.params.model + '/' + this.$route.params.id)
     },
 
     populateData(fields, entry) {
       this.form = new Form(fields, entry);
-      // hljs.initHighlightingOnLoad();
     },
 
     getFieldsByTab: function(tabName) {

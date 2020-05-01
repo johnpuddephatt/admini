@@ -1,8 +1,8 @@
 <?php
 
-Route::group(['namespace' => '\Admini\app\Http\Controllers'], function() {
+Route::group(['namespace' => '\Admini\app\Http\Controllers', 'prefix' => 'admini'], function() {
 
-  Route::get('/admin', 'ResourceController@dashboard')->name('dashboard');
+  Route::get('/', 'ResourceController@dashboard')->name('dashboard');
 
   Route::get ( '{resource}/create', 'ResourceController@create' );
   Route::post ( '{resource}/store', 'ResourceController@store' );

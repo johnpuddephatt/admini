@@ -4,11 +4,13 @@
       <div class="column is-8-tablet is-7-desktop is-6-widescreen">
         <h1 class="page-title">Create</h1>
         <form v-if="form.fields" method="POST" :action="this.$route.params.model + '/store'" @submit.prevent="onSubmit" @keydown="form.errors.clear($event.target.name)">
-          <b-tabs>
+          <b-tabs v-if="tabNames.length > 1" :animated="false">
             <b-tab-item v-for="tabName in tabNames" :key="tabName || 'other'" :label="tabName || 'Other'">
-              <admini-fieldsets :tabs="getFieldsByTab(tabName)" :data="form.data" :errors="form.errors.errors"></admini-fieldsets>
+              <admini-fieldsets :fields="getFieldsByTab(tabName)" :data="form.data" :errors="form.errors.errors"></admini-fieldsets>
             </b-tab-item>
           </b-tabs>
+          <admini-fieldsets v-else :fields="form.fields" :data="form.data" :errors="form.errors.errors"></admini-fieldsets>
+
           <b-button tag="input" value="Reset" @click="form.reset()" />
           <b-button class="is-primary" tag="input" native-type="submit" value="Save" />
         </form>
@@ -45,13 +47,13 @@ export default {
   },
 
   created() {
-    axios.get('/' + this.$route.params.model + '/create')
+    axios.get('/admini/' + this.$route.params.model + '/create')
       .then(({data}) => { this.populateData(data.fields, data.entry) });
   },
 
   methods: {
     onSubmit() {
-      this.form.post('/' + this.$route.params.model + '/store')
+      this.form.post('/admini/' + this.$route.params.model + '/store')
     },
 
     populateData(fields, entry) {
